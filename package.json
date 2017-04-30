@@ -4,7 +4,8 @@
   "description": "Code dojo for teaching TDD",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "node_modules/.bin/eslint \"src/**/*.js\" \"test/**/*.js\" index.js --fix"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/eXigentCoder/tdd-dojo/issues"
   },
-  "homepage": "https://github.com/eXigentCoder/tdd-dojo#readme"
+  "homepage": "https://github.com/eXigentCoder/tdd-dojo#readme",
+  "devDependencies": {
+    "eslint": "3.19.0",
+    "eslint-plugin-node": "4.2.2"
+  }
 }
