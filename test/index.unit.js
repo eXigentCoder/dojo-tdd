@@ -32,4 +32,18 @@ describe('Index.js', function () {
 
         appStub.listen.should.have.been.calledOnce();
     });
+
+    it('Should log to the console if createApp returns a new app', function () {
+        sinon.spy(console, 'info');
+        const appStub = {
+            listen: function (port, callback) {
+                callback();
+                console.info.should.have.been.calledOnce();
+            }
+        };
+        const createAppStub = function (callback) {
+            callback(null, appStub);
+        };
+        proxyquire(pathToIndexFile, {'./src/create-app': createAppStub});
+    });
 });
