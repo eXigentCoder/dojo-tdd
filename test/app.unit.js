@@ -4,7 +4,7 @@ require('./initialise');
 const createApp = require('../src/create-app');
 const express = require('express');
 describe('create-app', function () {
-    it("Should return an express app", function (done) {
+    it('Should return an express app', function (done) {
         createApp(appCreated);
         function appCreated(err, app) {
             if (err) {

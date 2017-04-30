@@ -2,7 +2,13 @@
     "env": {
         "mocha": true
     },
+    "globals": {
+        "expect": true
+    },
     "plugins": [
         "mocha"
-    ]
+    ],
+    "rules": {
+        "node/no-unpublished-require": ["off"]
+    }
 }
