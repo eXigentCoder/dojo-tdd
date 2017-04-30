@@ -1,0 +1,25 @@
+{
+  "name": "tdd-dojo",
+  "version": "0.0.1",
+  "description": "Code dojo for teaching TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eXigentCoder/tdd-dojo.git"
+  },
+  "keywords": [
+    "TDD",
+    "code-dojo",
+    "dojo",
+    "node"
+  ],
+  "author": "Ryan Kotzen <potz666@gmail.com> (http://blog.exigentcoder.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eXigentCoder/tdd-dojo/issues"
+  },
+  "homepage": "https://github.com/eXigentCoder/tdd-dojo#readme"
+}
