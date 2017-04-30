@@ -10,7 +10,9 @@ function appCreated(err, app) {
     if (err) {
         throw err;
     }
-    app.listen(port, function () {
+    app.listen(port, appListening);
+    
+    function appListening() {
         console.info(util.format('%s is listening at http://%s:%s', packageJson.name, 'localhost', port));
-    });
+    }
 }

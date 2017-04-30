@@ -20,4 +20,16 @@ describe('Index.js', function () {
             proxyquire(pathToIndexFile, {'./src/create-app': createAppStub});
         }).to.throw(testError);
     });
+
+    it('Should call listen if createApp returns a new app', function () {
+        const appStub = {
+            listen: sinon.spy()
+        };
+        const createAppStub = function (callback) {
+            callback(null, appStub);
+        };
+        proxyquire(pathToIndexFile, {'./src/create-app': createAppStub});
+
+        appStub.listen.should.have.been.calledOnce();
+    });
 });
