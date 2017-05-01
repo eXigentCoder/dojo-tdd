@@ -8,7 +8,7 @@ const _ = require('lodash');
 
 describe('[Unit] Exercise 1 - Base Router', function () {
     describe("'/' route", function () {
-        it('1.1.1 Should be able to use the GET verb on the / route', function (done) {
+        it('1.1 Should be able to use the GET verb on the / route', function (done) {
             const reqOptions = {
                 method: 'GET',
                 url: '/'
@@ -30,7 +30,7 @@ describe('[Unit] Exercise 1 - Base Router', function () {
                 return done(new Error('Next should not have been called'));
             }
         });
-        describe('1.1.2 Should not allow verbs other than the GET, HEAD, OPTIONS verb on the / route', function () {
+        describe('1.2 Should not allow verbs other than the GET, HEAD, OPTIONS verb on the / route', function () {
             const methods = _.pull(http.METHODS, 'GET', 'HEAD', 'OPTIONS');
             methods.forEach(function (method) {
                 it(`Should result in the next function being called for the ${method} method`, function (done) {
