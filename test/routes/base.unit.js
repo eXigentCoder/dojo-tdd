@@ -4,8 +4,8 @@ const httpMocks = require('node-mocks-http');
 const router = require('../../src/routes/base');
 const events = require('events');
 
-describe('1.0 Base Route', function () {
-    it('1.1 Should be able to use the GET verb on the / route', function (done) {
+describe('Exercise 1 - Base Route', function () {
+    it('1.1.1 Should be able to use the GET verb on the / route', function (done) {
         const reqOptions = {
             method: 'GET',
             url: '/'
