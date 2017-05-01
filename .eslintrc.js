@@ -9,10 +9,10 @@ module.exports = {
     "rules": {
         "indent": ["error", 4],
         "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "single"],
+        "quotes": ["error", "single", {"avoidEscape": true}],
         "semi": ["error", "always"],
         "node/exports-style": ["error", "module.exports"],
         "strict": ["error", "safe"],
-        "no-console":["off"]
+        "no-console": ["off"]
     }
 };
