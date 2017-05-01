@@ -69,7 +69,8 @@ describe('[Unit] Exercise 1 - Base Router', function () {
                 });
                 res.on('end', function () {
                     expect(res._getStatusCode()).to.equal(200);
-                    expect(res._getData().name).to.equal(packageName.name);
+                    const body = JSON.parse(res._getData());
+                    expect(body.name).to.equal(packageName.name);
                     done();
                 });
                 router(req, res, next);
