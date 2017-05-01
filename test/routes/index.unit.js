@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 const baseRouter = require('../../src/routes/base');
 
-describe('Router class', function () {
+describe('[Unit] Router class', function () {
     it('Should use the base router on the / route', function () {
         const routerSpy = {
             use: sinon.spy()

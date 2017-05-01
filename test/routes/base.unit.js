@@ -6,7 +6,7 @@ const events = require('events');
 const http = require('http');
 const _ = require('lodash');
 
-describe('Exercise 1 - Base Router', function () {
+describe('[Unit] Exercise 1 - Base Router', function () {
     describe("'/' route", function () {
         it('1.1.1 Should be able to use the GET verb on the / route', function (done) {
             const reqOptions = {

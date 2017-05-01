@@ -4,7 +4,7 @@ const proxyquire = require('proxyquire');
 const pathToIndexFile = '../index';
 const sinon = require('sinon');
 
-describe('Index.js', function () {
+describe('[Unit] Index.js', function () {
     it('Should call create app', function () {
         const createAppStub = sinon.spy();
         proxyquire(pathToIndexFile, {'./src/create-app': createAppStub});
