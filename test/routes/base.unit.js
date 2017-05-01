@@ -5,6 +5,7 @@ const router = require('../../src/routes/base');
 const events = require('events');
 const http = require('http');
 const _ = require('lodash');
+const packageName = require('../../package.json');
 
 describe('[Unit] Exercise 1 - Base Router', function () {
     describe("'/' route", function () {
@@ -54,6 +55,31 @@ describe('[Unit] Exercise 1 - Base Router', function () {
                         return done();
                     }
                 });
+            });
+        });
+        describe('1.3 The response should contain:', function () {
+            it('1.3.1 The name of the application', function (done) {
+                const reqOptions = {
+                    method: 'GET',
+                    url: '/'
+                };
+                const req = httpMocks.createRequest(reqOptions);
+                const res = httpMocks.createResponse({
+                    eventEmitter: events.EventEmitter
+                });
+                res.on('end', function () {
+                    expect(res._getStatusCode()).to.equal(200);
+                    expect(res._getData().name).to.equal(packageName.name);
+                    done();
+                });
+                router(req, res, next);
+
+                function next(err) {
+                    if (err) {
+                        return done(err);
+                    }
+                    return done(new Error('Next should not have been called'));
+                }
             });
         });
     });
