@@ -12,8 +12,8 @@ You should have the app checked out from the master branch, at the tag `start-he
 ### 1.0 Base Route
 We have a basic api but no actual endpoints that we can call to do any work!
 
-1. Create an endpoint listening for `GET` requests at the `/` route.
-1. Other verbs should result in a `404` error.
+1. Create an endpoint listening for `GET`, requests at the `/` route.
+1. Other verbs, except for \[`GET`, `HEAD`, `OPTIONS`\] should result in a `404` error.
 1. The response should contain:
     1. The name of the application.
     1. The version of the application.
