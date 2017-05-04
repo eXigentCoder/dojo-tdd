@@ -6,6 +6,7 @@ const events = require('events');
 const http = require('http');
 const _ = require('lodash');
 const packageName = require('../../package.json');
+//TODO refactor this mock http logic to prevent duplication.
 
 describe('[Unit] Exercise 1 - Base Router', function () {
     describe("'/' route", function () {
@@ -14,21 +15,10 @@ describe('[Unit] Exercise 1 - Base Router', function () {
                 method: 'GET',
                 url: '/'
             };
-            const req = httpMocks.createRequest(reqOptions);
-            const res = httpMocks.createResponse({
-                eventEmitter: events.EventEmitter
-            });
-            res.on('end', function () {
-                expect(res._getStatusCode()).to.equal(200);
+            mockRequest(router, reqOptions, resComplete, shouldCallNext(done));
+            function resComplete(res) {
+                expect(res.statusCode).to.equal(200);
                 done();
-            });
-            router(req, res, next);
-
-            function next(err) {
-                if (err) {
-                    return done(err);
-                }
-                return done(new Error('Next should not have been called'));
             }
         });
         describe('1.2 Should not allow verbs other than the GET, HEAD, OPTIONS verb on the / route', function () {
@@ -39,21 +29,7 @@ describe('[Unit] Exercise 1 - Base Router', function () {
                         method: method,
                         url: '/'
                     };
-                    const req = httpMocks.createRequest(reqOptions);
-                    const res = httpMocks.createResponse({
-                        eventEmitter: events.EventEmitter
-                    });
-                    res.on('end', function () {
-                        done(new Error('res.end should not have been called'));
-                    });
-                    router(req, res, next);
-
-                    function next(err) {
-                        if (err) {
-                            return done(err);
-                        }
-                        return done();
-                    }
+                    mockRequest(router, reqOptions, shouldNotReturnResponse(done), shouldCallNext(done));
                 });
             });
         });
@@ -63,25 +39,60 @@ describe('[Unit] Exercise 1 - Base Router', function () {
                     method: 'GET',
                     url: '/'
                 };
-                const req = httpMocks.createRequest(reqOptions);
-                const res = httpMocks.createResponse({
-                    eventEmitter: events.EventEmitter
-                });
-                res.on('end', function () {
-                    expect(res._getStatusCode()).to.equal(200);
-                    const body = JSON.parse(res._getData());
-                    expect(body.name).to.equal(packageName.name);
+                mockRequest(router, reqOptions, resComplete, shouldNotCallNext(done));
+                function resComplete(res) {
+                    expect(res.statusCode).to.equal(200);
+                    expect(res.body.name).to.equal(packageName.name);
                     done();
-                });
-                router(req, res, next);
-
-                function next(err) {
-                    if (err) {
-                        return done(err);
-                    }
-                    return done(new Error('Next should not have been called'));
                 }
             });
         });
     });
 });
+
+function mockRequest(middlewareOrRouter, reqOptions, responseCallback, nextCallback) {
+    const req = httpMocks.createRequest(reqOptions);
+    const res = httpMocks.createResponse({
+        eventEmitter: events.EventEmitter
+    });
+    res.on('end', function () {
+        let resToReturn;
+        try {
+            resToReturn = {
+                statusCode: res._getStatusCode(),
+                body: JSON.parse(res._getData()),
+                headers: res._getHeaders(),
+                raw: res
+            };
+        }
+        catch (err) {
+            return responseCallback(err);
+        }
+        responseCallback(null, resToReturn);
+    });
+    middlewareOrRouter(req, res, nextCallback);
+}
+
+function shouldNotCallNext(done) {
+    return function next(err) {
+        if (err) {
+            return done(err);
+        }
+        return done(new Error('Next should not have been called'));
+    };
+}
+
+function shouldCallNext(done) {
+    return function next(err) {
+        if (err) {
+            return done(err);
+        }
+        return done();
+    };
+}
+
+function shouldNotReturnResponse(done) {
+    return function resComplete() {
+        done(new Error('res.end should not have been called'));
+    };
+}
