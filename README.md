@@ -10,6 +10,7 @@ You should have the app checked out from the master branch, at the tag `start-he
 # Exercises
 
 ### 1.0 Base Route
+
 We have a basic api but no actual endpoints that we can call to do any work!
 
 1. Create an endpoint listening for `GET`, requests at the `/` route.
@@ -19,4 +20,25 @@ We have a basic api but no actual endpoints that we can call to do any work!
     1. The version of the application.
     1. How long the application has been running for.
 
-### 2.0  Skill tree tags
+### 2.0  Skills
+
+Now that our api is up and running we would like to add some business value. We would like to be able to track skills for people in our organisation.
+In order to do this we will need to store the skills somewhere.
+
+#### Skill Definition
+| Field | Required | Unique | Type | Description |
+|---|---|---|---|---|
+| Name | Yes | Yes | String | The display name of the skill |
+| Description | No | No | String | A description of what the skill entails. |
+| Inactive | Yes | No | Boolean | Specifies if the skill is currently active or not |
+
+
+1. Add the ability to get a list of all skills from the api.
+1. Add the ability to find the details of a skill by its name.
+1. Add the ability to add a new skill.
+    1. Ensure uniqueness.
+    1. Ensure validation.
+1. Add the ability to deactivate a skill.
+1. Add the ability to update a skill.
+    1. Ensure uniqueness.
+    1. Ensure validation.
